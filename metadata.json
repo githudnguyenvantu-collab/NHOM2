@@ -1,0 +1,6 @@
+{
+  "name": "DISCI - Luyện Tập Tại Nhà Cá Nhân Hóa & Tiết Kiệm",
+  "description": "Ứng dụng luyện tập tại nhà chi phí thấp, lập lịch tập cá nhân hóa, hỗ trợ giảm nguy cơ chấn thương và gợi ý sản phẩm tiết kiệm cho người dùng Việt Nam.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

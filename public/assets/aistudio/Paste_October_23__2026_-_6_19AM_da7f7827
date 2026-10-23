@@ -1,0 +1,1518 @@
+# MASTER PROMPT — XÂY DỰNG PHẦN MỀM DISCI HOÀN CHỈNH
+
+## 1. VAI TRÒ VÀ NHIỆM VỤ
+
+Bạn là một đội ngũ phát triển phần mềm chuyên nghiệp gồm:
+
+- Chuyên gia phân tích nghiệp vụ và kiến trúc hệ thống.
+- UI/UX Designer chuyên thiết kế ứng dụng sức khỏe hiện đại.
+- Lập trình viên Flutter hoặc React Native.
+- Lập trình viên Backend, cơ sở dữ liệu và xác thực người dùng.
+- Chuyên gia xây dựng thuật toán cá nhân hóa lịch tập.
+- Chuyên gia kiểm thử phần mềm, bảo mật và tối ưu hiệu năng.
+
+Nhiệm vụ của bạn là **phân tích, thiết kế, lập trình, kiểm thử và hoàn thiện phần mềm DISCI theo toàn bộ bản đề xuất ý tưởng khởi nghiệp được cung cấp**, không chỉ viết kế hoạch, tạo giao diện mẫu, tạo prototype hoặc đưa ra đoạn mã minh họa.
+
+Tên dự án: DISCI.
+
+Tên đầy đủ: Ứng dụng luyện tập tại nhà với chi phí thấp, lập lịch tập cá nhân hóa, hỗ trợ giảm nguy cơ chấn thương và gợi ý sản phẩm tiết kiệm.
+
+Đối tượng chính: Người dùng từ 18–30 tuổi tại Việt Nam, đặc biệt là sinh viên và nhân viên văn phòng muốn rèn luyện sức khỏe, tăng cơ, giảm mỡ hoặc tăng sức bền nhưng có ngân sách hạn chế.
+
+Ngôn ngữ giao diện: Tiếng Việt.
+
+Đơn vị mặc định: kg, cm, mmHg, lần/phút, kcal, g và VNĐ.
+
+Mục tiêu sản phẩm: Xây dựng một ứng dụng có thể sử dụng thực tế, giao diện hoàn chỉnh, dữ liệu có thể lưu và truy xuất, các chức năng liên kết với nhau, có khả năng hoạt động ngoại tuyến và có kiến trúc để mở rộng về sau.
+
+### NGUYÊN TẮC BẮT BUỘC
+
+1. Không được bỏ sót bất kỳ chức năng nào được nêu trong phần 3 – Giải pháp của tài liệu gốc.
+2. Phải triển khai đầy đủ các chức năng bắt buộc của MVP trong phần 5 – Phân hệ chức năng.
+3. Phải bảo đảm các yêu cầu trong phần 7 – Điểm khác biệt, phần 8 – An toàn, phần 9 – Công nghệ, phần 10 – Bảo mật và quyền riêng tư được phản ánh vào phần mềm.
+4. Phải bảo tồn các định hướng sản phẩm, thị trường, mô hình kinh doanh, kế hoạch phát triển và tiêu chí đánh giá trong những phần còn lại của tài liệu.
+5. Không được tự ý loại bỏ tính năng chỉ vì khó lập trình. Nếu tính năng cần dịch vụ bên ngoài, hãy xây dựng giao diện, cấu trúc dữ liệu, luồng xử lý, adapter tích hợp và hướng dẫn cấu hình.
+6. Không được tạo nút bấm giả, dữ liệu lưu tạm chỉ để trình diễn hoặc thông báo thành công khi thao tác chưa thực sự thành công.
+7. Không được sử dụng dữ liệu giả như dữ liệu thật. Dữ liệu demo phải được đánh dấu rõ ràng.
+8. Không được tuyên bố một tính năng đã hoàn thành nếu tính năng đó chưa được triển khai và kiểm thử.
+9. Không được chỉ tạo trang chủ rồi dừng lại. Phải triển khai toàn bộ các màn hình, trạng thái, thao tác, luồng điều hướng và nghiệp vụ.
+10. Nếu không thể hoàn thành mọi chức năng trong một lần thực thi, hãy chia thành các giai đoạn phát triển liên tiếp, lưu lại tiến độ và tiếp tục cho đến khi hoàn thành phạm vi đã yêu cầu.
+
+---
+
+# PHẦN I. KIẾN TRÚC VÀ CÔNG NGHỆ
+
+## 2. Công nghệ đề xuất
+
+Phát triển ứng dụng di động đa nền tảng Android và iOS.
+
+Ưu tiên lựa chọn:
+
+- Frontend: Flutter và Dart.
+- Backend: Firebase Authentication, Cloud Firestore và Firebase Cloud Messaging.
+- Lưu trữ cục bộ: SQLite hoặc giải pháp local database tương đương.
+- Lưu tệp: Firebase Storage hoặc giải pháp lưu trữ riêng tư tương đương.
+- Biểu đồ: Thư viện biểu đồ Flutter có hỗ trợ tương tác.
+- Xuất báo cáo: Tạo PDF có hỗ trợ tiếng Việt.
+- Kiểm thử: Unit test, widget test, integration test và kiểm thử nghiệp vụ.
+- Quản lý mã nguồn: Git, cấu trúc thư mục rõ ràng và tài liệu README.
+
+Có thể thay Firebase bằng FastAPI hoặc Node.js kết hợp PostgreSQL nếu kiến trúc thay thế đáp ứng tốt hơn yêu cầu.
+
+Phải chọn một kiến trúc chính, không trộn lẫn nhiều công nghệ một cách tùy tiện.
+
+## 3. Yêu cầu kiến trúc
+
+Xây dựng hệ thống theo các module độc lập:
+
+1. Authentication Module.
+2. User Profile Module.
+3. Body Metrics Module.
+4. Health Records Module.
+5. Health Safety Rules Module.
+6. BMI/TDEE Calculation Module.
+7. Workout Recommendation Engine.
+8. Weekly Schedule Module.
+9. Exercise Library Module.
+10. Workout Session and Progress Module.
+11. Recovery Check-in Module.
+12. Product Recommendation Module.
+13. Cost Comparison Module.
+14. Offline Storage and Synchronization Module.
+15. Notification Module.
+16. Privacy and Consent Module.
+17. Nutrition Module – sau MVP.
+18. Community Module – sau MVP.
+19. Health Integration Module – sau MVP.
+20. PDF Report Module – sau MVP.
+21. Shopping Cart and Order Module – sau MVP.
+22. Trainer and Partner Integration Module – định hướng mở rộng.
+
+Tách biệt giao diện, nghiệp vụ, dữ liệu và tích hợp dịch vụ.
+
+Các ngưỡng cảnh báo, quy tắc lựa chọn bài tập, công thức tính toán và tiêu chí đề xuất sản phẩm phải được quản lý tập trung, có kiểm thử, có phiên bản và có thể cập nhật mà không phải sửa toàn bộ ứng dụng.
+
+Không đưa khóa bí mật, thông tin xác thực quản trị hoặc thông tin dịch vụ nhạy cảm vào mã nguồn phía người dùng.
+
+---
+
+# PHẦN II. THIẾT KẾ GIAO DIỆN HOÀN CHỈNH
+
+## 4. Phong cách thiết kế
+
+Thiết kế giao diện hiện đại, sáng, thân thiện, chuyên nghiệp và dễ sử dụng.
+
+Yêu cầu:
+
+- Tông màu sáng, nền trắng hoặc xám rất nhạt.
+- Màu xanh lá hoặc xanh ngọc làm màu nhận diện sức khỏe.
+- Màu xanh dương dùng cho thông tin và dữ liệu.
+- Màu vàng hoặc cam dành cho mức lưu ý.
+- Màu đỏ dành cho cảnh báo nghiêm trọng.
+- Bo góc mềm mại, đổ bóng nhẹ, khoảng trắng hợp lý.
+- Typography tiếng Việt rõ ràng, phân cấp tiêu đề dễ đọc.
+- Biểu đồ trực quan, thẻ thông tin dễ hiểu.
+- Biểu tượng thống nhất.
+- Chuyển cảnh nhẹ, phản hồi thao tác rõ ràng.
+- Hỗ trợ màn hình điện thoại nhỏ, điện thoại lớn và máy tính bảng.
+- Có trạng thái tải, thành công, thất bại, dữ liệu trống, mất mạng và xác nhận thao tác.
+- Không lạm dụng hiệu ứng gây chậm hoặc làm giảm khả năng tiếp cận.
+
+Không thiết kế giao diện giống một trang quảng cáo hoặc một dashboard chỉ để trình diễn.
+
+## 5. Hệ thống điều hướng
+
+Xây dựng thanh điều hướng chính gồm:
+
+1. Tổng quan.
+2. Lịch tập.
+3. Bài tập.
+4. Tiến độ.
+5. Cá nhân.
+
+Trong mục Cá nhân hoặc khu vực điều hướng phụ phải có liên kết rõ ràng tới:
+
+- Hồ sơ và chỉ số cơ thể.
+- Kết quả khám sức khỏe.
+- Báo cáo thể trạng.
+- Gợi ý sản phẩm.
+- So sánh chi phí.
+- Check-in phục hồi khi tính năng được bật.
+- Dinh dưỡng khi tính năng được bật.
+- Cộng đồng khi tính năng được bật.
+- Báo cáo PDF khi tính năng được bật.
+- Giỏ hàng và đơn hàng khi tính năng được bật.
+- Đồng bộ thiết bị khi tính năng được bật.
+- Cài đặt và quyền riêng tư.
+- Trợ giúp và thông tin ứng dụng.
+
+Không được giấu các chức năng quan trọng trong những menu khó tìm.
+
+---
+
+# PHẦN III. TÀI KHOẢN VÀ ĐĂNG NHẬP
+
+## 6. Các màn hình tài khoản
+
+Tạo đầy đủ:
+
+- Màn hình khởi động.
+- Màn hình giới thiệu ứng dụng.
+- Đăng ký tài khoản.
+- Đăng nhập.
+- Quên mật khẩu.
+- Đặt lại mật khẩu.
+- Xác minh email nếu phương thức xác thực yêu cầu.
+- Đăng xuất.
+- Xác nhận xóa tài khoản.
+- Trạng thái tài khoản chưa hoàn thiện hồ sơ.
+- Trạng thái tài khoản đã hoàn thiện hồ sơ.
+
+Form đăng ký cần có các trường phù hợp như email, mật khẩu và xác nhận mật khẩu.
+
+Kiểm tra dữ liệu đầu vào, hiển thị lỗi ngay tại trường tương ứng, có nút hiện/ẩn mật khẩu.
+
+Không lưu mật khẩu dưới dạng văn bản thuần.
+
+Nếu hỗ trợ đăng nhập Apple hoặc Google, phải tích hợp thực tế và cấu hình đầy đủ; không hiển thị phương thức đăng nhập chưa hoạt động như thể đã hoàn thành.
+
+Sau khi đăng nhập, điều hướng người dùng theo trạng thái hồ sơ và các bước thiết lập ban đầu.
+
+---
+
+# PHẦN IV. HỒ SƠ CƠ THỂ VÀ NHẬP CHỈ SỐ
+
+## 7. Hồ sơ cơ thể
+
+Tạo màn hình cho phép người dùng nhập và cập nhật:
+
+- Chiều cao.
+- Cân nặng.
+- Tuổi hoặc ngày sinh phù hợp với cách triển khai.
+- Giới tính phục vụ công thức tính toán.
+- Mục tiêu tập luyện.
+- Số buổi tập mỗi tuần.
+- Thời lượng có thể dành cho mỗi buổi.
+- Mức vận động hiện tại.
+- Không gian tập luyện.
+- Dụng cụ hiện có.
+- Ngân sách dành cho dụng cụ.
+- Các hạn chế vận động mà người dùng tự khai báo.
+
+Mục tiêu gồm:
+
+- Tăng cơ.
+- Giảm mỡ.
+- Tăng sức bền.
+- Nâng cao sức khỏe chung.
+
+Không bắt buộc người dùng phải có đầy đủ dụng cụ hoặc đăng ký phòng gym.
+
+Tạo quy trình thiết lập ban đầu có chỉ dẫn từng bước, thanh tiến độ hoàn thiện hồ sơ và khả năng quay lại sửa dữ liệu.
+
+## 8. Tính BMI và TDEE
+
+Tự động tính BMI khi có chiều cao và cân nặng hợp lệ.
+
+Công thức BMI:
+
+BMI = Cân nặng (kg) / [Chiều cao (m)]².
+
+TDEE được tính bằng phương pháp phù hợp với dữ liệu đầu vào, sử dụng công thức chuyển hóa cơ bản đã chọn và hệ số vận động được công khai.
+
+Hiển thị:
+
+- Giá trị BMI.
+- Phân loại tham khảo.
+- TDEE ước tính.
+- Các dữ liệu được sử dụng để tính.
+- Thời điểm cập nhật.
+- Giải thích giới hạn của kết quả.
+
+Nếu thiếu dữ liệu, không hiển thị kết quả như thể đã tính chính xác.
+
+BMI và TDEE chỉ là số liệu ước tính; không sử dụng chúng để tự động chẩn đoán bệnh.
+
+## 9. Form nhập chỉ số nhanh
+
+Thiết kế form ưu tiên thao tác nhanh trên điện thoại.
+
+Bắt buộc có:
+
+- Nút tăng/giảm lớn cho cân nặng và nhịp tim.
+- Bàn phím số khi nhập dữ liệu số.
+- Đơn vị hiển thị ngay trong ô nhập.
+- Huyết áp nhập theo cặp tâm thu/tâm trương.
+- Kiểm tra dữ liệu ngay khi nhập.
+- Thông báo lỗi dễ hiểu.
+- Nhãn trạng thái ngay cạnh từng chỉ số.
+- Nút lưu rõ ràng.
+- Trạng thái đang lưu, lưu thành công và lưu thất bại.
+- Cho phép sửa và xem lại các lần nhập trước.
+
+Các nhãn tham khảo gồm:
+
+- Bình thường hoặc tiến bộ tốt theo quy tắc đã cấu hình.
+- Cần theo dõi.
+- Ngoài ngưỡng tham khảo hoặc cảnh báo cao.
+
+Không tự động gọi một chỉ số là bình thường khi chưa có quy tắc tham chiếu phù hợp.
+
+Không gộp tất cả chỉ số thành một kết luận duy nhất mà không giải thích.
+
+## 10. Lịch sử chỉ số
+
+Mỗi lần lưu cần có:
+
+- Ngày và giờ đo.
+- Giá trị chỉ số.
+- Đơn vị.
+- Nguồn nhập.
+- Mức cảnh báo tại thời điểm lưu.
+- Ghi chú nếu có.
+
+Tạo biểu đồ biến động cân nặng, BMI và nhịp tim nghỉ theo tuần/tháng khi có dữ liệu.
+
+Cho phép xem lịch sử, sửa dữ liệu sai và xóa dữ liệu theo quyền của người dùng.
+
+Khi cân nặng thay đổi hơn 2 kg so với lần nhập trước, tạo cảnh báo theo tài liệu, nhưng phải yêu cầu xác nhận dữ liệu và không suy diễn nguyên nhân y tế.
+
+---
+
+# PHẦN V. KẾT QUẢ KHÁM SỨC KHỎE
+
+## 11. Form kết quả khám không bắt buộc
+
+Tạo một khu vực riêng có thể mở rộng hoặc thu gọn.
+
+Các trường gồm:
+
+- Ngày khám.
+- Nơi khám.
+- Huyết áp.
+- Nhịp tim nghỉ.
+- Đường huyết đói.
+- Cholesterol toàn phần.
+- LDL.
+- Triglyceride.
+- Tình trạng xương khớp đã được bác sĩ ghi nhận.
+- Khuyến cáo vận động của bác sĩ.
+- Ghi chú.
+- Ảnh phiếu khám.
+- Tệp PDF phiếu khám.
+
+Cho phép bỏ qua toàn bộ phần này mà vẫn sử dụng được các chức năng cơ bản.
+
+Trước khi sử dụng dữ liệu khám để cá nhân hóa bài tập, phải có lựa chọn đồng ý rõ ràng.
+
+Yêu cầu người dùng xác nhận quyền sử dụng dữ liệu theo từng loại phù hợp.
+
+Cho phép:
+
+- Xem dữ liệu đã nhập.
+- Cập nhật.
+- Xóa từng kết quả.
+- Xóa tệp đã tải lên.
+- Thu hồi sự đồng ý.
+- Xem mục đích sử dụng dữ liệu.
+
+Tệp khám phải được lưu riêng tư, có kiểm soát quyền truy cập và không được tự động chia sẻ.
+
+Nếu không có quyền đồng ý, dữ liệu khám không được sử dụng cho đề xuất cá nhân hóa.
+
+Không tự động đọc hoặc diễn giải hình ảnh phiếu khám bằng AI nếu chưa có chức năng, quy trình kiểm chứng và cơ chế đồng ý tương ứng.
+
+---
+
+# PHẦN VI. CẢNH BÁO SỨC KHỎE VÀ QUY TẮC AN TOÀN
+
+## 12. Hệ thống cảnh báo ba mức
+
+Xây dựng module độc lập đánh giá từng chỉ số và tổng hợp mức độ cần thận trọng.
+
+Các mức theo bản đề xuất:
+
+- Tiến bộ tốt.
+- Mức lưu ý.
+- Cảnh báo cao.
+
+Mỗi cảnh báo phải hiển thị:
+
+1. Chỉ số liên quan.
+2. Giá trị đã nhập.
+3. Ngưỡng tham khảo đang sử dụng.
+4. Lý do xuất hiện cảnh báo.
+5. Ảnh hưởng tới lịch tập.
+6. Những bài tập cần thay thế hoặc tạm dừng.
+7. Hướng dẫn an toàn tiếp theo.
+8. Thời điểm cập nhật.
+
+### 12.1. Bộ ngưỡng ban đầu
+
+Sử dụng bảng dưới đây làm cấu hình tham khảo có thể chỉnh sửa, không coi đây là quy tắc chẩn đoán y khoa đã được xác nhận.
+
+| Chỉ số | Mức lưu ý | Cảnh báo cao |
+|---|---|---|
+| Huyết áp | Tâm thu từ 130 hoặc tâm trương từ 85 mmHg | Tâm thu từ 140 hoặc tâm trương từ 90 mmHg; hoặc tâm thu dưới 90, tâm trương dưới 60 mmHg |
+| Nhịp tim nghỉ | Từ 90 lần/phút | Trên 100 hoặc dưới 50 lần/phút |
+| BMI | Từ 25 | Dưới 18,5 hoặc từ 30 |
+| Cân nặng | Thay đổi hơn 2 kg so với lần trước | Không có ngưỡng riêng |
+| Đường huyết đói | Từ 100 đến dưới 126 mg/dL | Từ 126 mg/dL trở lên hoặc dưới 70 mg/dL |
+| Cholesterol toàn phần | Từ 200 mg/dL | Chưa đặt ngưỡng riêng |
+| LDL | Từ 160 mg/dL | Chưa đặt ngưỡng riêng |
+| Triglyceride | Từ 200 mg/dL | Chưa đặt ngưỡng riêng |
+| Xương khớp | Bác sĩ ghi nhận cần lưu ý | Theo khuyến cáo bác sĩ |
+| Khuyến cáo vận động | Chỉ tập nhẹ, không chạy/nhảy/tải nặng | Tạm ngừng tập, chờ bác sĩ cho phép |
+
+Các ngưỡng này phải được lưu trong cấu hình riêng để chuyên gia có thể rà soát và cập nhật.
+
+Xử lý riêng các trường hợp nằm đúng ranh giới, thiếu dữ liệu, đơn vị khác nhau hoặc các chỉ số mâu thuẫn.
+
+Nếu một chỉ số có mức cảnh báo cao, không được hạ mức cảnh báo tổng thể chỉ vì các chỉ số khác bình thường.
+
+### 12.2. Phản ứng của hệ thống
+
+Khi tiến bộ tốt:
+
+- Duy trì lịch phù hợp.
+- Chỉ tăng tải từ từ nếu người dùng đáp ứng tốt và không có chống chỉ định.
+- Không mặc định tăng tải 5% cho mọi người dùng.
+
+Khi mức lưu ý:
+
+- Giảm cường độ khi phù hợp.
+- Ưu tiên bài tập ít va đập.
+- Thay bài tập không phù hợp.
+- Hiển thị lưu ý liên quan đến chỉ số.
+- Không gợi ý dụng cụ hoặc sản phẩm có thể làm tăng rủi ro.
+
+Khi cảnh báo cao:
+
+- Tạm dừng bài tập nặng.
+- Không tự tạo lịch tập cường độ cao.
+- Ưu tiên hướng dẫn an toàn, nghỉ ngơi và tham khảo nhân viên y tế.
+- Không đề xuất dụng cụ nặng hoặc thực phẩm bổ sung.
+- Không tự gợi ý tăng hoặc giảm năng lượng khi tình trạng cần được đánh giá chuyên môn.
+
+Nếu người dùng báo đau ngực, ngất, khó thở nghiêm trọng hoặc dấu hiệu cấp cứu, phải dừng luồng tập luyện và hiển thị hướng dẫn tìm trợ giúp y tế khẩn cấp phù hợp.
+
+Không được xem nhịp tim dưới 50 ở mọi người là bệnh lý, vì cần xét bối cảnh; nhưng phải áp dụng quy tắc thận trọng đã cấu hình và không khuyến khích tập nặng khi chưa làm rõ.
+
+### 12.3. Ưu tiên khuyến cáo bác sĩ
+
+Nếu kết quả khám có ghi:
+
+- Cần lưu ý khớp gối.
+- Cần lưu ý lưng dưới.
+- Chỉ tập nhẹ.
+- Không chạy, nhảy hoặc nâng tải nặng.
+- Tạm ngừng tập.
+
+Thì quy tắc lựa chọn bài tập phải tuân thủ khuyến cáo đã được người dùng xác nhận.
+
+Không được để thuật toán tự động ghi đè chỉ định của bác sĩ.
+
+Tạo thông báo rõ ràng rằng DISCI chỉ hỗ trợ luyện tập, không chẩn đoán và không thay thế tư vấn y tế.
+
+---
+
+# PHẦN VII. TẠO LỊCH TẬP CÁ NHÂN HÓA
+
+## 13. Bộ máy đề xuất lịch tập
+
+Tạo lịch tập tự động theo tuần dựa trên:
+
+- Mục tiêu.
+- Tuổi.
+- Chiều cao, cân nặng và BMI.
+- Thể trạng hiện tại.
+- Số buổi tập có thể thực hiện.
+- Thời lượng mỗi buổi.
+- Dụng cụ sẵn có.
+- Không gian tập.
+- Kết quả khám đã được cho phép sử dụng.
+- Mức cảnh báo.
+- Check-in phục hồi nếu có.
+- Lịch sử buổi tập.
+- Phản hồi đau, mệt và khả năng hoàn thành.
+
+Lịch phải có:
+
+- Thứ và ngày.
+- Nhóm cơ hoặc mục tiêu vận động.
+- Danh sách bài tập.
+- Số hiệp.
+- Số lần lặp hoặc thời gian.
+- Thời gian nghỉ.
+- Thời lượng dự kiến.
+- Mức độ khó.
+- Khởi động.
+- Giãn cơ.
+- Ngày nghỉ hoặc phục hồi.
+- Lý do lựa chọn bài tập.
+
+### 13.1. Quy tắc lịch tập
+
+- Lịch tập phù hợp với quỹ thời gian người dùng.
+- Không mặc định tất cả người dùng đều có dụng cụ.
+- Không xếp lịch nặng liên tiếp một cách thiếu hợp lý.
+- Tăng khối lượng từ từ, có tuần giảm tải khi phù hợp.
+- Sử dụng thang RPE 1–10 để người dùng tự đánh giá mức gắng sức.
+- Điều chỉnh bài tập khi bỏ buổi, mệt hoặc đau.
+- Không dồn toàn bộ bài tập đã bỏ vào ngày tiếp theo.
+- Bảo đảm thời gian nghỉ hợp lý.
+- Ưu tiên an toàn hơn mục tiêu tăng cơ hoặc giảm mỡ.
+
+Mỗi quyết định điều chỉnh phải có lý do cụ thể, ví dụ:
+
+“Thay chạy bộ bằng đi bộ nhẹ vì lịch hiện tại cần giảm va đập và ưu tiên phục hồi.”
+
+Không sử dụng câu giải thích giả tạo nếu hệ thống không thực sự áp dụng quy tắc đó.
+
+## 14. Giao diện lịch tập
+
+Tạo:
+
+- Lịch theo tuần.
+- Danh sách buổi tập.
+- Chi tiết từng buổi.
+- Chi tiết bài tập.
+- Trạng thái chưa tập, đang tập, hoàn thành, đã bỏ.
+- Nút bắt đầu buổi tập.
+- Nút ghi nhận hoàn thành.
+- Nút bỏ buổi và nhập lý do.
+- Nút đổi ngày.
+- Nút đổi bài tập.
+- Nút điều chỉnh thời lượng.
+- Nút tạo lại lịch khi thông tin đầu vào thay đổi.
+- Xác nhận trước khi thay đổi lịch lớn.
+
+Cho phép người dùng chỉnh sửa lịch, nhưng mọi chỉnh sửa vẫn phải tuân thủ các quy tắc an toàn.
+
+---
+
+# PHẦN VIII. THƯ VIỆN VÀ HƯỚNG DẪN BÀI TẬP
+
+## 15. Thư viện bài tập
+
+Tạo thư viện có dữ liệu bài tập thực tế, không chỉ có tên bài tập.
+
+Phân loại theo:
+
+- Tập tại nhà.
+- Tập ngoài trời.
+- Tập với trọng lượng cơ thể.
+- Dây kháng lực.
+- Tạ tay.
+- Xà đơn.
+- Đi bộ và chạy bộ.
+- Bài tập nhẹ và phục hồi.
+- Bài tập cho người mới.
+- Bài tập theo mục tiêu.
+- Bài tập phù hợp không gian nhỏ.
+
+Mỗi bài tập phải có:
+
+- Tên tiếng Việt.
+- Hình minh họa hoặc video hướng dẫn có quyền sử dụng.
+- Nhóm cơ chính.
+- Dụng cụ.
+- Mức độ khó.
+- Hướng dẫn từng bước.
+- Tư thế đúng.
+- Lỗi thường gặp.
+- Cách thở.
+- Số hiệp và số lần gợi ý.
+- Thời gian nghỉ.
+- Lưu ý an toàn.
+- Các trường hợp cần thay thế.
+- Bài tập thay thế tương ứng.
+
+Không được tạo liên kết video không tồn tại hoặc dùng hình ảnh sai bài tập.
+
+## 16. Bộ lọc và đề xuất bài tập
+
+Cho phép lọc theo:
+
+- Mục tiêu.
+- Nhóm cơ.
+- Mức độ.
+- Dụng cụ.
+- Thời lượng.
+- Không gian.
+- Mức tác động.
+- Các hạn chế vận động đã khai báo.
+
+Chỉ đề xuất bài tập đáp ứng các ràng buộc an toàn.
+
+Khi một bài không phù hợp, phải đề xuất bài thay thế có lý do.
+
+Ví dụ:
+
+- Thay squat thông thường bằng squat bám ghế khi phù hợp.
+- Thay bài bật nhảy bằng bài ít va đập.
+- Cân nhắc bird-dog hoặc dead bug cho một số chương trình ổn định thân người khi phù hợp.
+- Không mặc định plank, gập bụng, squat hoặc chạy bộ phù hợp với mọi trường hợp đau gối và lưng.
+
+Không tuyên bố rằng một bài tập thay thế chắc chắn an toàn cho mọi người.
+
+## 17. Màn hình tập luyện
+
+Trong lúc tập, hiển thị:
+
+- Tên bài.
+- Hướng dẫn tư thế.
+- Hiệp hiện tại.
+- Số lần hoặc thời gian.
+- Đồng hồ nghỉ.
+- Tiến độ buổi tập.
+- Nút hoàn thành bài.
+- Nút tạm dừng.
+- Nút bỏ bài.
+- Nút báo đau hoặc không phù hợp.
+
+Nếu người dùng báo đau nhói, đau kéo dài hoặc triệu chứng bất thường, phải dừng gợi ý tập tiếp theo và đưa ra hướng dẫn an toàn.
+
+---
+
+# PHẦN IX. GHI TẬP VÀ THEO DÕI TIẾN ĐỘ
+
+## 18. Ghi nhận buổi tập
+
+Thiết kế luồng ghi tập có thể hoàn thành trong dưới một phút đối với buổi tập thông thường.
+
+Cho phép:
+
+- Xác nhận buổi tập hoàn thành.
+- Ghi thời lượng.
+- Ghi bài tập đã thực hiện.
+- Ghi số hiệp, số lần hoặc thời gian.
+- Ghi mức RPE.
+- Ghi cảm nhận sau tập.
+- Báo đau.
+- Báo mệt.
+- Ghi chú.
+- Lưu lịch sử.
+
+Tự động tính tỷ lệ hoàn thành lịch tập.
+
+## 19. Biểu đồ tiến độ
+
+Tạo biểu đồ theo tuần và tháng cho:
+
+- Cân nặng.
+- BMI.
+- Số buổi tập.
+- Tỷ lệ hoàn thành.
+- Tổng thời lượng tập.
+- Khối lượng tập khi có đủ dữ liệu.
+- Nhịp tim nghỉ khi có dữ liệu.
+- Chuỗi ngày duy trì thói quen khi tính năng này được bật.
+
+Cho phép chọn khoảng thời gian, xem chi tiết dữ liệu và so sánh hai giai đoạn.
+
+Không hiển thị xu hướng giả khi chưa đủ dữ liệu.
+
+## 20. Điều chỉnh lịch sau tập
+
+Sau mỗi buổi hoặc khi người dùng báo bỏ buổi, mệt hay đau:
+
+- Cập nhật lịch sử.
+- Đánh giá khả năng hoàn thành.
+- Điều chỉnh lịch tương lai nếu cần.
+- Giải thích lý do điều chỉnh.
+- Không tăng tải chỉ dựa vào việc hoàn thành một buổi.
+- Không tiếp tục đề xuất bài tập gây đau.
+
+Lịch mới phải được lưu thành dữ liệu thực tế và có thể xem lại.
+
+---
+
+# PHẦN X. CHECK-IN PHỤC HỒI VÀ CHẾ ĐỘ KÝ TÚC XÁ
+
+## 21. Check-in phục hồi hằng ngày
+
+Đây là chức năng được nêu trong phần Giải pháp và phải được xây dựng thành module hoàn chỉnh, có thể bật theo giai đoạn triển khai.
+
+Mỗi ngày, người dùng có thể hoàn thành check-in trong khoảng 10 giây.
+
+Các lựa chọn:
+
+- Giấc ngủ: Đủ / Ít.
+- Đau nhức: Không / Nhẹ / Nhiều.
+- Mệt mỏi: Ổn / Mệt.
+
+Sau khi lưu, hệ thống phản hồi ngay:
+
+- Giữ lịch hiện tại.
+- Giảm cường độ.
+- Thay bằng buổi phục hồi nhẹ.
+- Nghỉ khi báo đau nhiều.
+
+Nếu đau kéo dài hoặc có triệu chứng bất thường, hướng dẫn tham khảo nhân viên y tế.
+
+Cho phép xem lịch sử check-in, tỷ lệ hoàn thành và các lần lịch tập được điều chỉnh.
+
+Không sử dụng check-in thay thế đánh giá y tế.
+
+## 22. Chế độ ký túc xá
+
+Tạo nút bật/tắt chế độ “Tập trong không gian nhỏ – ít tiếng ồn”.
+
+Khi bật, bộ máy lịch tập phải ưu tiên bài tập:
+
+- Không cần nhiều diện tích.
+- Không tạo tiếng động lớn.
+- Không yêu cầu dụng cụ cồng kềnh.
+- Có thể thực hiện trong phòng trọ hoặc ký túc xá.
+
+Thay thế các bài như nhảy dây, burpee có bật nhảy hoặc bài chạy cần diện tích rộng bằng lựa chọn ít ồn, ít va đập và phù hợp hơn.
+
+Có thể cân nhắc đi bộ tại chỗ, nâng cao gối tại chỗ hoặc burpee không nhảy khi phù hợp.
+
+Không chỉ thay đổi giao diện; phải thay đổi dữ liệu và nội dung buổi tập thực tế.
+
+---
+
+# PHẦN XI. GỢI Ý SẢN PHẨM VÀ TIẾT KIỆM CHI PHÍ
+
+## 23. Vị trí và nguyên tắc
+
+Đây là chức năng trọng tâm của DISCI.
+
+Sau khi người dùng nhập chỉ số cơ thể và hoàn thiện báo cáo thể trạng, phải có mục riêng:
+
+**“Gợi ý sản phẩm phù hợp với bạn”**
+
+Mục này nằm ngay dưới báo cáo thể trạng và phải tách biệt rõ ràng khỏi lịch tập.
+
+Không được chỉ hiển thị sản phẩm trên trang chủ mà bỏ qua vị trí đã yêu cầu.
+
+Hệ thống phải chỉ đề xuất sản phẩm cần thiết dựa trên:
+
+- Mục tiêu.
+- Thể trạng.
+- Mức cảnh báo.
+- Khuyến cáo vận động của bác sĩ nếu có.
+- Không gian tập.
+- Dụng cụ hiện có.
+- Ngân sách.
+- Chi phí tham khảo.
+- Mức độ cần thiết.
+
+## 24. Danh mục sản phẩm
+
+Xây dựng danh mục gồm:
+
+- Dây kháng lực.
+- Tạ tay.
+- Xà đơn.
+- Thảm tập.
+- Dụng cụ hỗ trợ tập luyện tại nhà khác.
+- Máy chạy bộ.
+- Sản phẩm hỗ trợ dinh dưỡng hoặc tăng cơ phù hợp khi đáp ứng các điều kiện an toàn.
+
+Sản phẩm phải được sắp xếp theo chi phí từ thấp đến cao theo mặc định.
+
+Có bộ lọc:
+
+- Giá thấp đến cao.
+- Giá cao đến thấp.
+- Mục tiêu.
+- Loại sản phẩm.
+- Không gian sử dụng.
+- Ngân sách.
+- Dụng cụ cần thiết.
+- Mức độ ưu tiên.
+
+Mỗi sản phẩm phải có:
+
+- Tên.
+- Hình ảnh.
+- Danh mục.
+- Mô tả công dụng.
+- Đối tượng phù hợp.
+- Lưu ý an toàn.
+- Giá tham khảo bằng VNĐ.
+- Ngày cập nhật giá.
+- Mức độ cần thiết.
+- Lý do được đề xuất.
+- Liên kết mua hàng nếu có nguồn hợp lệ.
+
+Không tự bịa giá, tình trạng hàng hoặc liên kết mua hàng. Dữ liệu mẫu phải ghi rõ là dữ liệu minh họa.
+
+## 25. Thuật toán đề xuất sản phẩm
+
+Thực hiện theo thứ tự:
+
+1. Kiểm tra cảnh báo sức khỏe và khuyến cáo vận động.
+2. Loại các sản phẩm không phù hợp.
+3. Kiểm tra dụng cụ người dùng đã có.
+4. Xác định nhu cầu thật sự theo mục tiêu.
+5. Xem xét không gian và ngân sách.
+6. Xếp hạng sản phẩm phù hợp.
+7. Ưu tiên phương án giá thấp và có thể thay thế bằng bài tập tay không.
+8. Giải thích lý do đề xuất.
+9. Ước tính tổng chi phí đầu tư.
+10. So sánh với chi phí tập gym.
+
+Khi cảnh báo cao, tạm ngừng gợi ý dụng cụ nặng và thực phẩm bổ sung.
+
+Khi mức lưu ý liên quan đến huyết áp hoặc nhịp tim cao, không ưu tiên sản phẩm kích thích mạnh như pre-workout chứa nhiều caffeine.
+
+Khi đường huyết cao, nêu rõ lưu ý với sản phẩm nhiều đường như sữa tăng cân và nước tăng lực.
+
+Khi BMI thấp, không tự động đề xuất sản phẩm tăng cân nếu có đường huyết cao hoặc yếu tố cần chuyên gia đánh giá.
+
+Không gợi ý thuốc, không bán thuốc và không hướng dẫn sử dụng thuốc.
+
+Với thực phẩm bổ sung, phải ghi rõ “Thực phẩm bổ sung, không phải thuốc”, không cam kết hiệu quả và khuyên hỏi chuyên gia khi cần.
+
+## 26. So sánh chi phí
+
+Tạo màn hình so sánh:
+
+- Chi phí mua dụng cụ ban đầu.
+- Chi phí bổ sung dự kiến.
+- Chi phí tập luyện hằng tháng.
+- Phí phòng gym tham khảo.
+- Phí PT nếu người dùng nhập.
+- Chi phí đi lại nếu người dùng nhập.
+- Thời gian sử dụng dự kiến.
+- Tổng chi phí theo các mốc thời gian.
+
+Cho phép người dùng tự nhập giá phòng gym tại địa phương để có kết quả thực tế hơn.
+
+Công thức cần phân biệt chi phí ban đầu và chi phí định kỳ.
+
+Hiển thị khoản chênh lệch và số tiền ước tính có thể tiết kiệm.
+
+Không khẳng định chắc chắn rằng tập tại nhà luôn rẻ hơn; kết quả phụ thuộc vào dữ liệu đầu vào.
+
+---
+
+# PHẦN XII. GỢI Ý DINH DƯỠNG – SAU MVP
+
+## 27. Module dinh dưỡng
+
+Xây dựng kiến trúc và màn hình cho chức năng dinh dưỡng sau MVP.
+
+Tính năng dự kiến:
+
+- Ước tính năng lượng mỗi ngày từ TDEE.
+- Gợi ý lượng đạm tham khảo theo cân nặng.
+- Thực đơn mẫu món Việt.
+- Bữa sáng.
+- Bữa trưa.
+- Bữa tối.
+- Bữa phụ.
+- Kcal mỗi món.
+- Lượng đạm.
+- Chi phí ước tính mỗi ngày.
+- Danh sách thực phẩm.
+- Thay đổi món theo ngân sách.
+- Xem tổng chi phí thực đơn.
+
+Các tham số ban đầu trong đề xuất:
+
+- Giảm mỡ: TDEE trừ khoảng 400 kcal.
+- Tăng cơ: TDEE cộng khoảng 300 kcal.
+- Tăng sức bền: TDEE cộng khoảng 100 kcal.
+- Lượng đạm tham khảo: 1,0–1,6 g/kg.
+
+Phải cho phép chuyên gia rà soát tham số trước khi sử dụng chính thức.
+
+Nếu BMI thấp hoặc có chỉ số bất thường, không tự động đề xuất tăng hoặc giảm năng lượng; phải khuyên người dùng hỏi chuyên gia.
+
+Không trình bày các giá trị ước tính như đơn thuốc hoặc chỉ định điều trị.
+
+---
+
+# PHẦN XIII. CỘNG ĐỒNG VÀ TẠO ĐỘNG LỰC – SAU MVP
+
+## 28. Tính năng cộng đồng
+
+Xây dựng module có khả năng mở rộng gồm:
+
+- Hồ sơ cộng đồng.
+- Kết nối bạn bè.
+- Tạo nhóm tập luyện.
+- Thử thách 7 ngày.
+- Bảng xếp hạng.
+- Chuỗi ngày tập.
+- Huy hiệu, ví dụ huy hiệu 7 ngày.
+- Chia sẻ buổi tập.
+- Lời nhắn.
+- Video ngắn.
+- Cổ vũ.
+- Bình luận.
+- Báo cáo nội dung vi phạm.
+- Xóa bài đăng.
+- Kiểm soát quyền riêng tư từng bài.
+
+Mỗi bài chia sẻ phải có lựa chọn:
+
+- Bạn bè.
+- Công khai.
+- Chỉ mình tôi.
+
+Cân nặng phải ẩn mặc định. Chỉ được đính kèm cân nặng nếu người dùng chủ động chọn.
+
+Không tự động công khai bất kỳ chỉ số sức khỏe nào.
+
+Có cơ chế giới hạn dung lượng video, kiểm duyệt và xử lý nội dung vi phạm trước khi mở rộng cộng đồng.
+
+---
+
+# PHẦN XIV. ĐỒNG BỘ THIẾT BỊ – SAU MVP
+
+## 29. Apple Health và Google Health Connect
+
+Xây dựng module tích hợp độc lập cho:
+
+- Apple Health.
+- Google Health Connect.
+
+Dữ liệu dự kiến có thể đồng bộ gồm:
+
+- Nhịp tim nghỉ.
+- Giấc ngủ.
+- Các dữ liệu hỗ trợ cá nhân hóa được người dùng cho phép.
+
+Yêu cầu:
+
+- Chỉ xin quyền cần thiết.
+- Giải thích mục đích sử dụng.
+- Cho phép từ chối.
+- Cho phép ngắt kết nối.
+- Không giả lập dữ liệu thiết bị.
+- Hiển thị nguồn và thời điểm đồng bộ.
+- Xử lý lỗi cấp quyền.
+- Không làm mất dữ liệu cục bộ khi đồng bộ thất bại.
+
+Nếu môi trường hiện tại chưa có quyền truy cập SDK hoặc thiết bị kiểm thử, hãy hoàn thiện kiến trúc, giao diện trạng thái và adapter tích hợp; ghi rõ phần cần cấu hình, không tuyên bố đã đồng bộ thực tế.
+
+---
+
+# PHẦN XV. BÁO CÁO PDF – SAU MVP
+
+## 30. Tạo báo cáo tiến độ
+
+Cho phép người dùng chọn khoảng thời gian và chọn các trường muốn đưa vào báo cáo.
+
+Nội dung có thể gồm:
+
+- Mục tiêu tập luyện.
+- Cân nặng đầu kỳ và cuối kỳ.
+- BMI.
+- Nhịp tim nghỉ.
+- Huyết áp.
+- Mức cảnh báo.
+- Số buổi tập hoàn thành.
+- Tiến độ tập luyện.
+- Kết quả khám đã được cho phép sử dụng.
+- Ghi chú của người dùng.
+
+Tạo PDF có giao diện chuyên nghiệp, hỗ trợ tiếng Việt, ngày lập báo cáo và biểu đồ khi đủ dữ liệu.
+
+Trước khi xuất, hiển thị danh sách trường được chọn.
+
+Chỉ đưa vào PDF những thông tin mà người dùng đã cho phép.
+
+Có thể lưu tệp hoặc chia sẻ thông qua thao tác chủ động của người dùng.
+
+Không tự động gửi báo cáo cho bác sĩ hoặc HLV.
+
+---
+
+# PHẦN XVI. GIỎ HÀNG VÀ ĐẶT MUA – SAU MVP
+
+## 31. Giỏ hàng
+
+Từ mục gợi ý sản phẩm, cho phép:
+
+- Thêm sản phẩm vào giỏ.
+- Thay đổi số lượng.
+- Xóa sản phẩm.
+- Xem giá từng sản phẩm.
+- Xem tổng tiền hàng.
+- Xem phí vận chuyển.
+- Xem tổng thanh toán.
+- Nhập mã giảm giá nếu được hỗ trợ.
+- Nhập thông tin nhận hàng.
+- Xác nhận đơn hàng.
+- Xem trạng thái đơn.
+- Xem lịch sử đơn hàng.
+
+Theo đề xuất, phí vận chuyển được miễn phí từ đơn hàng 500.000 VNĐ trở lên. Mức này phải là cấu hình có thể thay đổi theo chính sách đối tác.
+
+## 32. Thanh toán và giao hàng
+
+Các phương thức dự kiến:
+
+- Thanh toán khi nhận hàng.
+- Chuyển khoản QR.
+- Ví điện tử.
+
+Chỉ hiển thị phương thức thanh toán đã được tích hợp hoặc cấu hình hợp lệ.
+
+Không giả lập thanh toán thành công.
+
+Nếu chuyển khoản QR chưa có đối soát, phải hiển thị trạng thái chờ xác nhận và hướng dẫn rõ ràng.
+
+Đơn hàng cần có:
+
+- Mã đơn.
+- Sản phẩm.
+- Số lượng.
+- Giá.
+- Phí vận chuyển.
+- Tổng tiền.
+- Thông tin nhận hàng.
+- Phương thức thanh toán.
+- Trạng thái thanh toán.
+- Trạng thái giao hàng.
+- Thời điểm đặt.
+
+Hàng hóa do cửa hàng đối tác giao theo định hướng của đề xuất.
+
+Phải có cấu trúc tích hợp đối tác, chính sách đổi trả và quy định bảo mật phù hợp trước khi triển khai thực tế.
+
+---
+
+# PHẦN XVII. THÔNG BÁO VÀ HOẠT ĐỘNG NGOẠI TUYẾN
+
+## 33. Thông báo
+
+Tạo trung tâm thông báo và cấu hình nhắc nhở.
+
+Các loại thông báo:
+
+- Nhắc lịch tập.
+- Nhắc giờ bắt đầu.
+- Nhắc ngày nghỉ hoặc phục hồi khi phù hợp.
+- Nhắc check-in.
+- Thông báo đồng bộ.
+- Thông báo liên quan đến tiến độ.
+- Thông báo đơn hàng khi chức năng mua hàng được triển khai.
+
+Cho phép:
+
+- Bật/tắt từng loại.
+- Chọn khung giờ.
+- Tạm ngừng thông báo.
+- Kiểm soát quyền thông báo trên thiết bị.
+
+Không gửi thông báo quá mức hoặc hiển thị thông tin sức khỏe nhạy cảm trên màn hình khóa nếu chưa được người dùng cho phép.
+
+## 34. Hoạt động ngoại tuyến
+
+Đây là chức năng bắt buộc của MVP.
+
+Khi không có mạng, người dùng vẫn phải có khả năng:
+
+- Xem lịch tập đã đồng bộ.
+- Xem nội dung bài tập đã lưu cục bộ.
+- Ghi nhận buổi tập.
+- Xem lịch sử cục bộ.
+- Nhập và lưu các dữ liệu phù hợp.
+
+Khi có mạng trở lại:
+
+- Tự đồng bộ.
+- Không tạo bản ghi trùng.
+- Không ghi đè dữ liệu mới bằng dữ liệu cũ.
+- Có cơ chế xử lý xung đột.
+- Hiển thị trạng thái đồng bộ.
+- Cho phép thử đồng bộ lại khi lỗi.
+
+Các tính năng cần máy chủ như đăng nhập mới, đồng bộ thiết bị, thanh toán hoặc cộng đồng phải hiển thị rõ yêu cầu kết nối.
+
+Không được gọi ứng dụng là offline-first nếu dữ liệu chỉ lưu trong bộ nhớ tạm và mất sau khi đóng ứng dụng.
+
+---
+
+# PHẦN XVIII. BẢO MẬT VÀ QUYỀN RIÊNG TƯ
+
+## 35. Quản lý dữ liệu
+
+Dữ liệu sức khỏe là dữ liệu nhạy cảm.
+
+Phải triển khai:
+
+- Màn hình giải thích việc thu thập dữ liệu.
+- Đồng ý theo từng loại dữ liệu.
+- Kiểm soát quyền truy cập.
+- Mã hóa dữ liệu khi truyền.
+- Bảo vệ dữ liệu lưu trữ theo khả năng của nền tảng.
+- Kiểm soát quyền truy cập tệp khám.
+- Quy tắc bảo mật phía máy chủ.
+- Xác thực quyền sở hữu dữ liệu.
+- Nhật ký các sự kiện bảo mật cần thiết.
+- Xóa dữ liệu.
+- Xuất dữ liệu.
+- Thu hồi sự đồng ý.
+- Xóa tài khoản theo quy trình phù hợp.
+
+Không được dựa hoàn toàn vào việc ẩn nút trên giao diện để bảo vệ dữ liệu.
+
+Phải cấu hình và kiểm thử quyền truy cập ở backend.
+
+## 36. Cài đặt quyền riêng tư
+
+Tạo trang riêng cho phép người dùng:
+
+- Xem các loại dữ liệu đang lưu.
+- Xem mục đích sử dụng.
+- Quản lý sự đồng ý.
+- Ngắt tích hợp thiết bị.
+- Xuất dữ liệu.
+- Xóa kết quả khám.
+- Xóa lịch sử tập luyện.
+- Xóa tài khoản.
+- Quản lý quyền chia sẻ cộng đồng.
+- Xem chính sách bảo mật.
+- Xem điều khoản sử dụng.
+
+Không xóa dữ liệu ngay khi người dùng bấm nút nếu cần bước xác nhận; nhưng sau khi xác nhận hợp lệ, phải thực hiện hoặc thông báo rõ trạng thái xử lý.
+
+Rà soát các quy định bảo vệ dữ liệu cá nhân của Việt Nam trước khi phát hành.
+
+## 37. Tuyên bố miễn trừ
+
+Hiển thị rõ ràng tại các vị trí thích hợp:
+
+“DISCI là ứng dụng hỗ trợ lập kế hoạch luyện tập và theo dõi tiến độ, không phải công cụ chẩn đoán hoặc điều trị y tế. Các chỉ số và khuyến nghị chỉ mang tính tham khảo. Khuyến cáo của bác sĩ được ưu tiên. Khi có dấu hiệu bất thường hoặc đau kéo dài, hãy ngừng tập và tham khảo nhân viên y tế.”
+
+Không quảng cáo rằng ứng dụng có thể phòng ngừa hoặc loại bỏ hoàn toàn chấn thương.
+
+Không bán hoặc gợi ý thuốc.
+
+---
+
+# PHẦN XIX. CÁC MÀN HÌNH BẮT BUỘC
+
+## 38. Danh sách kiểm kê giao diện
+
+Trước khi kết thúc dự án, phải có danh sách màn hình và trạng thái triển khai cho toàn bộ các nhóm sau:
+
+### Nhóm A – Tài khoản
+
+- Khởi động.
+- Giới thiệu.
+- Đăng ký.
+- Đăng nhập.
+- Quên mật khẩu.
+- Đặt lại mật khẩu.
+- Thiết lập hồ sơ ban đầu.
+
+### Nhóm B – Tổng quan và thể trạng
+
+- Trang tổng quan.
+- Báo cáo thể trạng.
+- Hồ sơ cơ thể.
+- Nhập chỉ số nhanh.
+- Lịch sử chỉ số.
+- Biểu đồ thể trạng.
+- Kết quả khám.
+- Tải ảnh hoặc PDF khám.
+- Quản lý đồng ý sử dụng dữ liệu.
+
+### Nhóm C – Tập luyện
+
+- Lịch tuần.
+- Chi tiết buổi tập.
+- Thư viện bài tập.
+- Chi tiết bài tập.
+- Màn hình đang tập.
+- Đồng hồ nghỉ.
+- Ghi tập.
+- Báo đau hoặc mệt.
+- Lịch sử buổi tập.
+- Biểu đồ tiến độ.
+- Điều chỉnh lịch.
+- Check-in phục hồi.
+- Chế độ ký túc xá.
+
+### Nhóm D – Sản phẩm
+
+- Gợi ý sản phẩm dưới báo cáo thể trạng.
+- Danh mục sản phẩm.
+- Chi tiết sản phẩm.
+- Bộ lọc.
+- So sánh chi phí.
+- Cấu hình ngân sách.
+
+### Nhóm E – Mở rộng
+
+- Dinh dưỡng.
+- Thực đơn món Việt.
+- Cộng đồng.
+- Hồ sơ cộng đồng.
+- Nhóm và thử thách.
+- Bảng xếp hạng.
+- Chia sẻ và bình luận.
+- Cài đặt quyền riêng tư bài đăng.
+- Kết nối Apple Health.
+- Kết nối Health Connect.
+- Tạo báo cáo PDF.
+- Chọn dữ liệu báo cáo.
+- Giỏ hàng.
+- Thanh toán.
+- Thông tin giao hàng.
+- Theo dõi đơn hàng.
+
+### Nhóm F – Hệ thống
+
+- Thông báo.
+- Cài đặt nhắc lịch.
+- Trạng thái ngoại tuyến.
+- Trạng thái đồng bộ.
+- Cài đặt tài khoản.
+- Quyền riêng tư.
+- Xuất dữ liệu.
+- Xóa dữ liệu.
+- Xóa tài khoản.
+- Trợ giúp.
+- Điều khoản.
+- Chính sách bảo mật.
+- Thông tin ứng dụng.
+
+Các chức năng sau MVP có thể được đánh dấu “Chưa triển khai trong bản phát hành MVP” nếu đúng với kế hoạch, nhưng phải được ghi nhận trong ma trận phạm vi và không được báo cáo sai là đã hoàn thành.
+
+---
+
+# PHẦN XX. MÔ HÌNH DỮ LIỆU VÀ BACKEND
+
+## 39. Cấu trúc dữ liệu
+
+Thiết kế cơ sở dữ liệu có quan hệ rõ ràng giữa các nhóm dữ liệu:
+
+- Users.
+- UserProfiles.
+- BodyMetrics.
+- HealthRecords.
+- ConsentRecords.
+- SafetyAssessments.
+- ExerciseLibrary.
+- WorkoutPlans.
+- WorkoutSessions.
+- WorkoutLogs.
+- RecoveryCheckins.
+- ProductCatalog.
+- ProductRecommendations.
+- CostComparisons.
+- Notifications.
+- DeviceConnections.
+- NutritionPlans.
+- CommunityProfiles.
+- Groups.
+- Challenges.
+- Posts.
+- Comments.
+- PDFReports.
+- CartItems.
+- Orders.
+- OrderItems.
+- PaymentRecords.
+- SyncRecords.
+
+Tùy kiến trúc được chọn, có thể điều chỉnh tên bảng hoặc collection nhưng phải bảo toàn nghiệp vụ.
+
+Mỗi bản ghi cần có mã định danh, thời điểm tạo và cập nhật khi phù hợp.
+
+Dữ liệu của mỗi người dùng phải được phân quyền đúng chủ sở hữu.
+
+Không cho phép người dùng đọc dữ liệu sức khỏe, hồ sơ khám hoặc đơn hàng của người khác thông qua việc thay đổi ID.
+
+## 40. Yêu cầu backend
+
+Triển khai:
+
+- Xác thực.
+- Phân quyền.
+- Lưu trữ.
+- Truy vấn.
+- Cập nhật.
+- Xóa.
+- Đồng bộ.
+- Kiểm tra dữ liệu.
+- Xử lý lỗi.
+- Quy tắc bảo mật.
+- Kiểm thử quyền truy cập.
+
+Không sử dụng localStorage hoặc bộ nhớ giao diện làm giải pháp lưu trữ duy nhất cho một ứng dụng di động cần dữ liệu bền vững.
+
+Không đưa toàn bộ dữ liệu nhạy cảm vào nhật ký hệ thống.
+
+Không ghi đè dữ liệu lịch sử khi cập nhật chỉ số mới.
+
+---
+
+# PHẦN XXI. KIỂM THỬ VÀ KIỂM SOÁT CHẤT LƯỢNG
+
+## 41. Kiểm thử bắt buộc
+
+Viết kiểm thử cho:
+
+### Nhóm tính toán
+
+- BMI.
+- TDEE.
+- Kiểm tra đơn vị.
+- Kiểm tra dữ liệu thiếu.
+- Kiểm tra dữ liệu bất hợp lý.
+- Ngưỡng cảnh báo.
+- Các trường hợp nằm đúng ranh giới.
+
+### Nhóm an toàn
+
+- Người có chỉ số cần lưu ý.
+- Người có cảnh báo cao.
+- Người có khuyến cáo vận động từ bác sĩ.
+- Người báo đau nhiều.
+- Người báo mệt.
+- Người có dữ liệu khám mâu thuẫn.
+- Người thu hồi đồng ý sử dụng dữ liệu khám.
+
+### Nhóm lịch tập
+
+- Tạo lịch.
+- Chỉnh sửa lịch.
+- Bỏ buổi.
+- Thay bài.
+- Điều chỉnh cường độ.
+- Chế độ ký túc xá.
+- Không đề xuất bài tập không phù hợp.
+
+### Nhóm sản phẩm
+
+- Sắp xếp giá tăng dần.
+- Lọc ngân sách.
+- Loại sản phẩm không phù hợp.
+- Tính tổng chi phí.
+- So sánh phòng gym.
+- Không gợi ý sản phẩm bị hạn chế bởi cảnh báo cao.
+
+### Nhóm dữ liệu
+
+- Đăng ký.
+- Đăng nhập.
+- Phân quyền.
+- Lưu dữ liệu.
+- Đồng bộ.
+- Xử lý xung đột.
+- Ngoại tuyến.
+- Khôi phục kết nối.
+- Xuất dữ liệu.
+- Xóa dữ liệu.
+
+### Nhóm giao diện
+
+- Không có nút bấm vô tác dụng.
+- Không có màn hình lỗi không thể thoát.
+- Không có nội dung bị cắt trên điện thoại.
+- Form có thông báo lỗi rõ ràng.
+- Các trạng thái tải và dữ liệu trống hoạt động.
+- Điều hướng không bị đứt gãy.
+- Tương thích nhiều kích thước màn hình.
+
+## 42. Tiêu chí chất lượng
+
+Mục tiêu kiểm thử dựa trên đề xuất:
+
+- Thời gian ghi buổi tập thông thường dưới một phút.
+- Thời gian nhập chỉ số nhanh dưới một phút.
+- Tỷ lệ lưu thành công ngay lần đầu được đo.
+- Tỷ lệ hoàn thành lịch tập được đo.
+- Tỷ lệ giữ chân tuần 1, tuần 4 và tuần 8 được đo khi có dữ liệu.
+- Mức độ phù hợp của lịch tập được đánh giá bằng phản hồi người dùng.
+- Mức độ đồng thuận với đánh giá của HLV được kiểm thử trên bộ tình huống.
+- Tỷ lệ báo đau hoặc chấn thương được theo dõi.
+- Tỷ lệ hoàn thành check-in được theo dõi khi triển khai.
+- Độ chính xác của phân loại cảnh báo phải được đánh giá bởi chuyên gia trên bộ tình huống kiểm thử.
+
+Không tự tuyên bố đã đạt các mục tiêu này nếu chưa có dữ liệu thực nghiệm.
+
+---
+
+# PHẦN XXII. KẾ HOẠCH THỰC HIỆN
+
+## 43. Giai đoạn 1 – Phân tích và thiết kế
+
+- Đọc toàn bộ bản đề xuất.
+- Tạo ma trận truy vết yêu cầu.
+- Lập sơ đồ kiến trúc.
+- Thiết kế cơ sở dữ liệu.
+- Thiết kế luồng người dùng.
+- Tạo danh sách màn hình.
+- Xây dựng design system.
+- Thiết lập dự án.
+- Xác định các dịch vụ bên ngoài cần cấu hình.
+
+Không được bỏ qua bước đối chiếu yêu cầu.
+
+## 44. Giai đoạn 2 – Xây dựng MVP lõi
+
+Triển khai thực tế:
+
+1. Tài khoản và hồ sơ cơ thể.
+2. Nhập chỉ số.
+3. Nhập kết quả khám.
+4. Tính BMI và TDEE.
+5. Cảnh báo ba mức.
+6. Tạo lịch tập.
+7. Thư viện và đề xuất bài tập.
+8. Ghi tập và biểu đồ tiến độ.
+9. Gợi ý sản phẩm.
+10. So sánh chi phí.
+11. Lưu trữ ngoại tuyến và đồng bộ.
+12. Thông báo.
+13. Bảo mật và quyền riêng tư.
+
+## 45. Giai đoạn 3 – Các ưu tiên mở rộng
+
+Thực hiện theo thứ tự:
+
+1. Check-in phục hồi và chế độ ký túc xá.
+2. Đồng bộ Apple Health và Google Health Connect.
+3. Nhóm bạn, thử thách và cộng đồng.
+4. Kết nối HLV/PT, cửa hàng đối tác và web quản trị khi có nhu cầu.
+5. Gợi ý dinh dưỡng và thực đơn món Việt.
+6. Báo cáo PDF.
+7. Giỏ hàng, thanh toán và đặt mua.
+
+Các module phải có thiết kế và điểm tích hợp rõ ràng ngay từ kiến trúc ban đầu để tránh phải viết lại toàn bộ phần mềm.
+
+Không tự động mở rộng thành một hệ thống thương mại điện tử hoặc mạng xã hội nặng nề trước khi hoàn thành MVP.
+
+## 46. Giai đoạn 4 – Hoàn thiện và phát hành
+
+- Chạy kiểm thử.
+- Sửa lỗi.
+- Tối ưu hiệu năng.
+- Kiểm tra bảo mật.
+- Kiểm tra quyền truy cập dữ liệu.
+- Kiểm tra giao diện trên các thiết bị.
+- Viết tài liệu cài đặt.
+- Viết tài liệu cấu hình backend.
+- Viết hướng dẫn chạy ứng dụng.
+- Chuẩn bị quy trình phát hành Android/iOS.
+- Liệt kê các chức năng đã hoàn thành và chưa hoàn thành.
+
+---
+
+# PHẦN XXIII. YÊU CẦU VỀ KẾT QUẢ BÀN GIAO
+
+## 47. Những gì AI phải tạo ra
+
+Không chỉ trả lời bằng kế hoạch. Phải trực tiếp tạo và chỉnh sửa mã nguồn trong môi trường lập trình đang sử dụng.
+
+Bàn giao tối thiểu:
+
+1. Mã nguồn ứng dụng.
+2. Cấu trúc thư mục hoàn chỉnh.
+3. Toàn bộ màn hình đã triển khai.
+4. Các module nghiệp vụ.
+5. Cơ sở dữ liệu và cấu trúc dữ liệu.
+6. Cấu hình backend cần thiết.
+7. Bộ quy tắc bảo mật.
+8. Dữ liệu mẫu có nhãn minh họa.
+9. Bộ kiểm thử.
+10. Tệp hướng dẫn cài đặt và chạy.
+11. Tệp cấu hình môi trường mẫu không chứa bí mật.
+12. Danh sách biến môi trường và dịch vụ cần cấu hình.
+13. Hướng dẫn thiết lập tài khoản dịch vụ.
+14. Ma trận yêu cầu – chức năng – màn hình – kiểm thử.
+15. Báo cáo các chức năng đã hoàn thành.
+16. Danh sách các chức năng còn thiếu hoặc cần dịch vụ bên ngoài.
+
+Nếu môi trường hỗ trợ chạy ứng dụng, phải chạy thử, sửa lỗi và kiểm tra các luồng chính.
+
+Nếu môi trường không có thiết bị hoặc SDK cần thiết, phải nói rõ giới hạn và cung cấp hướng dẫn kiểm thử tương ứng.
+
+Không tạo báo cáo hoàn thành giả.
+
+---
+
+# PHẦN XXIV. MA TRẬN TRUY VẾT VÀ CHỐNG BỎ SÓT
+
+## 48. Kiểm kê toàn bộ tài liệu nguồn
+
+Trước khi kết thúc, hãy tạo bảng đối chiếu toàn bộ 16 phần của bản đề xuất gốc.
+
+Các phần cần được kiểm kê:
+
+1. Tóm tắt ý tưởng.
+2. Vấn đề cần giải quyết.
+3. Giải pháp.
+4. Thị trường mục tiêu.
+5. Phân hệ chức năng.
+6. Phân tích cạnh tranh.
+7. Điểm khác biệt và điểm mới.
+8. Cơ sở khoa học và nguyên tắc an toàn.
+9. Công nghệ và kiến trúc.
+10. Bảo mật, quyền riêng tư và pháp lý.
+11. Kế hoạch phát triển.
+12. Chỉ số đo lường thành công.
+13. Rủi ro và biện pháp giảm thiểu.
+14. Mô hình kinh doanh.
+15. Nguyên tắc SCAMPER.
+16. Kết luận.
+
+Đối với từng phần, ghi rõ:
+
+- Yêu cầu gốc.
+- Chức năng hoặc quy tắc tương ứng.
+- Màn hình liên quan.
+- Module mã nguồn.
+- Trạng thái triển khai.
+- Kết quả kiểm thử.
+- Lý do chưa hoàn thành nếu có.
+
+Các phần không phải tính năng phần mềm trực tiếp như phân tích thị trường, cạnh tranh, SCAMPER và mô hình kinh doanh phải được giữ trong tài liệu dự án, không cần biến chúng thành các màn hình người dùng nếu bản đề xuất không yêu cầu.
+
+Mọi yêu cầu liên quan trực tiếp đến sản phẩm phải được truy vết đến nơi triển khai cụ thể.
+
+Không được đánh dấu hoàn thành chỉ vì đã tạo giao diện. Phải kiểm tra cả nghiệp vụ và dữ liệu.
+
+## 49. Điều kiện nghiệm thu cuối cùng
+
+Chỉ báo cáo hoàn thành khi đã:
+
+- Kiểm tra toàn bộ ma trận truy vết.
+- Xác nhận các chức năng MVP có luồng sử dụng thực tế.
+- Kiểm tra form nhập liệu.
+- Kiểm tra lưu và truy xuất dữ liệu.
+- Kiểm tra thuật toán BMI/TDEE.
+- Kiểm tra quy tắc cảnh báo.
+- Kiểm tra ưu tiên khuyến cáo bác sĩ.
+- Kiểm tra tạo và điều chỉnh lịch tập.
+- Kiểm tra thư viện bài tập.
+- Kiểm tra ghi tập và biểu đồ.
+- Kiểm tra vị trí mục gợi ý sản phẩm dưới báo cáo thể trạng.
+- Kiểm tra sắp xếp sản phẩm theo giá.
+- Kiểm tra so sánh chi phí.
+- Kiểm tra hoạt động ngoại tuyến.
+- Kiểm tra quyền riêng tư.
+- Kiểm tra các chức năng mở rộng theo trạng thái thực tế.
+- Kiểm tra toàn bộ nút bấm, điều hướng và trạng thái lỗi.
+- Ghi nhận rõ những gì chưa được tích hợp hoặc chưa được kiểm chứng.
+
+---
+
+# LỆNH THỰC THI CUỐI CÙNG
+
+Bắt đầu ngay bằng việc phân tích toàn bộ tài liệu đề xuất DISCI và tạo ma trận truy vết yêu cầu.
+
+Sau đó, kiểm tra môi trường lập trình, tạo cấu trúc dự án và triển khai phần mềm theo thứ tự ưu tiên đã quy định.
+
+Không dừng lại ở việc đưa ra kế hoạch hoặc liệt kê các bước sẽ làm. Hãy thực hiện trực tiếp công việc lập trình trong môi trường được cung cấp.
+
+Không tự ý rút gọn yêu cầu. Không bỏ sót chức năng trong phần 3 – Giải pháp. Không bỏ qua những phần còn lại của tài liệu. Không tạo nút bấm giả hoặc dữ liệu giả không được đánh dấu.
+
+Ưu tiên một MVP có thể chạy, lưu dữ liệu, xử lý nghiệp vụ và kiểm thử thực tế trước; sau đó tiếp tục triển khai các chức năng mở rộng theo đúng thứ tự.
+
+Nếu phải chia thành nhiều lượt, hãy ghi lại tiến độ, các tệp đã tạo, chức năng đã hoàn thành và bước tiếp theo; tiếp tục từ trạng thái hiện tại thay vì tạo lại dự án hoặc dừng sau khi dựng giao diện.
+
+**Mục tiêu cuối cùng: một phần mềm DISCI có kiến trúc hoàn chỉnh, giao diện hiện đại, các chức năng MVP hoạt động thực tế, các chức năng mở rộng được quản lý rõ ràng, an toàn dữ liệu và có thể tiếp tục phát triển để phát hành cho người dùng.**
